@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket API Example</title>
+</head>
+<body>
+    <div id="messages"></div>
+    <input type="text" id="messageInput" placeholder="Enter message">
+    <button onclick="sendMessage()">Send</button>
+    <button onclick="connect()">Connect</button>
+    <button onclick="disconnect()">Disconnect</button>
+
+    <script>
+        let ws = null;
+        const messagesDiv = document.getElementById("messages");
+
+        // Replace with your actual WebSocket URL from CDK output
+        const WS_URL = "wss://your-websocket-id.execute-api.us-east-1.amazonaws.com/prod";
+
+        function connect() {
+            ws = new WebSocket(WS_URL);
+
+            ws.onopen = () => {
+                addMessage("Connected to WebSocket");
+            };
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                addMessage(`Received: ${data.action} - ${JSON.stringify(data.data)}`);
+            };
+
+            ws.onclose = () => {
+                addMessage("Disconnected from WebSocket");
+            };
+
+            ws.onerror = (error) => {
+                addMessage(`Error: ${error}`);
+            };
+        }
+
+        function sendMessage() {
+            const input = document.getElementById("messageInput");
+            const message = {
+                roomId: "room1",
+                message: input.value,
+                timestamp: Date.now()
+            };
+
+            ws.send(JSON.stringify({
+                action: "create",
+                ...message
+            }));
+
+            input.value = "";
+        }
+
+        function disconnect() {
+            if (ws) {
+                ws.close();
+            }
+        }
+
+        function addMessage(message) {
+            const div = document.createElement("div");
+            div.textContent = `${new Date().toLocaleTimeString()}: ${message}`;
+            messagesDiv.appendChild(div);
+        }
+    </script>
+</body>
+</html>
