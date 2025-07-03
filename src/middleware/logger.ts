@@ -8,6 +8,7 @@ export interface LoggerOptions {
   sensitiveKeys?: string[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const logger = (options: LoggerOptions = {}): middy.MiddlewareObject<any, any> => {
     const {
         level = "info",
@@ -24,6 +25,7 @@ export const logger = (options: LoggerOptions = {}): middy.MiddlewareObject<any,
         error: 3,
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const log = (message: string, obj?: any, lvl: "debug" | "info" | "warn" | "error" = "info") => {
         if (logLevel[lvl] < logLevel[level]) return;
 
@@ -32,6 +34,7 @@ export const logger = (options: LoggerOptions = {}): middy.MiddlewareObject<any,
             logObj = JSON.parse(JSON.stringify(obj));
 
             // Redact sensitive information
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const redact = (obj: any, keys: string[]) => {
                 if (!obj || typeof obj !== "object") return;
 
@@ -89,9 +92,7 @@ export const logger = (options: LoggerOptions = {}): middy.MiddlewareObject<any,
 
             log(`Lambda invocation completed: ${context.functionName}`, {
                 requestId: context.awsRequestId,
-                executionTime: context.getRemainingTimeInMillis
-                    ? context.memoryLimitInMB - context.getRemainingTimeInMillis()
-                    : undefined,
+                executionTime: context.getRemainingTimeInMillis()
             });
         },
         onError: async (request) => {
