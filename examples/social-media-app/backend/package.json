@@ -1,0 +1,47 @@
+{
+  "name": "social-media-backend",
+  "version": "1.0.0",
+  "description": "Social media application backend using AWS Framework",
+  "main": "infrastructure/app.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "cdk": "cdk",
+    "deploy": "npm run build && cdk deploy",
+    "deploy:dev": "npm run build && cdk deploy --context stage=dev",
+    "deploy:prod": "npm run build && cdk deploy --context stage=prod",
+    "destroy": "cdk destroy",
+    "diff": "cdk diff",
+    "synth": "cdk synth",
+    "bootstrap": "cdk bootstrap"
+  },
+  "dependencies": {
+    "aws-framework": "file:../../..",
+    "aws-cdk-lib": "^2.100.0",
+    "constructs": "^10.3.0",
+    "@aws-sdk/client-dynamodb": "^3.400.0",
+    "@aws-sdk/lib-dynamodb": "^3.400.0",
+    "@aws-sdk/client-apigatewaymanagementapi": "^3.400.0",
+    "uuid": "^9.0.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "@types/uuid": "^9.0.0",
+    "@types/jsonwebtoken": "^9.0.0",
+    "@types/jest": "^29.5.0",
+    "typescript": "^5.1.0",
+    "jest": "^29.6.0",
+    "ts-jest": "^29.1.0",
+    "aws-cdk": "^2.100.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/__tests__/**/*.test.ts"
+    ]
+  }
+}
