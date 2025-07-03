@@ -1,10 +1,10 @@
-import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-lambda";
-import { BaseLambda } from "./base-lambda";
 import { CognitoJwtVerifier } from "aws-jwt-verify";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { BaseLambda } from "./base-lambda";
 
 export interface ApiResponse {
   statusCode: number;
-  body: any;
+  body: object;
   headers?: Record<string, string>;
 }
 
@@ -17,20 +17,20 @@ export interface AuthUser {
 }
 
 export abstract class RestApiLambda extends BaseLambda<APIGatewayProxyEvent, APIGatewayProxyResult> {
-  protected jwtVerifier?: CognitoJwtVerifier;
+    protected jwtVerifier?: CognitoJwtVerifier;
 
-  constructor() {
-    super();
-    
-    // Initialize JWT verifier if User Pool is configured
-    if (process.env.USER_POOL_ID && process.env.USER_POOL_CLIENT_ID) {
-      this.jwtVerifier = CognitoJwtVerifier.create({
-        userPoolId: process.env.USER_POOL_ID,
-        tokenUse: "access",
-        clientId: process.env.USER_POOL_CLIENT_ID,
-      });
+    constructor() {
+        super();
+
+        // Initialize JWT verifier if User Pool is configured
+        if (process.env.USER_POOL_ID && process.env.USER_POOL_CLIENT_ID) {
+            this.jwtVerifier = CognitoJwtVerifier.create({
+                userPoolId: process.env.USER_POOL_ID,
+                tokenUse: "access",
+                clientId: process.env.USER_POOL_CLIENT_ID,
+            });
+        }
     }
-  }
 
   protected abstract processApi(event: APIGatewayProxyEvent): Promise<ApiResponse>;
 
@@ -68,128 +68,128 @@ export abstract class RestApiLambda extends BaseLambda<APIGatewayProxyEvent, API
 
   // Authentication methods
   protected async getAuthenticatedUser(event: APIGatewayProxyEvent): Promise<AuthUser | null> {
-    try {
-      const token = this.extractToken(event);
-      if (!token || !this.jwtVerifier) {
-        return null;
-      }
+      try {
+          const token = this.extractToken(event);
+          if (!token || !this.jwtVerifier) {
+              return null;
+          }
 
-      const payload = await this.jwtVerifier.verify(token);
-      
-      return {
-        id: payload.sub,
-        email: payload.email || '',
-        username: payload['custom:username'] || payload.email || '',
-        role: payload['custom:role'] || 'user',
-        permissions: payload['custom:permissions'] ? JSON.parse(payload['custom:permissions']) : []
-      };
-    } catch (error) {
-      this.logger.warn('Token verification failed', { error });
-      return null;
-    }
+          const payload = await this.jwtVerifier.verify(token);
+
+          return {
+              id: payload.sub,
+              email: payload.email || "",
+              username: payload["custom:username"] || payload.email || "",
+              role: payload["custom:role"] || "user",
+              permissions: payload["custom:permissions"] ? JSON.parse(payload["custom:permissions"]) : []
+          };
+      } catch (error) {
+          this.logger.warn("Token verification failed", { error });
+          return null;
+      }
   }
 
   private extractToken(event: APIGatewayProxyEvent): string | null {
-    const authHeader = event.headers.Authorization || event.headers.authorization;
-    if (!authHeader) return null;
+      const authHeader = event.headers.Authorization || event.headers.authorization;
+      if (!authHeader) return null;
 
-    const parts = authHeader.split(' ');
-    if (parts.length !== 2 || parts[0] !== 'Bearer') return null;
+      const parts = authHeader.split(" ");
+      if (parts.length !== 2 || parts[0] !== "Bearer") return null;
 
-    return parts[1];
+      return parts[1];
   }
 
   // Helper methods for common responses
   protected successResponse(data: any, message?: string): ApiResponse {
-    return {
-      statusCode: 200,
-      body: {
-        success: true,
-        data,
-        message
-      }
-    };
+      return {
+          statusCode: 200,
+          body: {
+              success: true,
+              data,
+              message
+          }
+      };
   }
 
   protected createdResponse(data: any, message?: string): ApiResponse {
-    return {
-      statusCode: 201,
-      body: {
-        success: true,
-        data,
-        message
-      }
-    };
+      return {
+          statusCode: 201,
+          body: {
+              success: true,
+              data,
+              message
+          }
+      };
   }
 
   protected badRequestResponse(message: string): ApiResponse {
-    return {
-      statusCode: 400,
-      body: {
-        success: false,
-        error: message
-      }
-    };
+      return {
+          statusCode: 400,
+          body: {
+              success: false,
+              error: message
+          }
+      };
   }
 
-  protected unauthorizedResponse(message: string = 'Unauthorized'): ApiResponse {
-    return {
-      statusCode: 401,
-      body: {
-        success: false,
-        error: message
-      }
-    };
+  protected unauthorizedResponse(message: string = "Unauthorized"): ApiResponse {
+      return {
+          statusCode: 401,
+          body: {
+              success: false,
+              error: message
+          }
+      };
   }
 
-  protected forbiddenResponse(message: string = 'Forbidden'): ApiResponse {
-    return {
-      statusCode: 403,
-      body: {
-        success: false,
-        error: message
-      }
-    };
+  protected forbiddenResponse(message: string = "Forbidden"): ApiResponse {
+      return {
+          statusCode: 403,
+          body: {
+              success: false,
+              error: message
+          }
+      };
   }
 
-  protected notFoundResponse(message: string = 'Not found'): ApiResponse {
-    return {
-      statusCode: 404,
-      body: {
-        success: false,
-        error: message
-      }
-    };
+  protected notFoundResponse(message: string = "Not found"): ApiResponse {
+      return {
+          statusCode: 404,
+          body: {
+              success: false,
+              error: message
+          }
+      };
   }
 
   protected methodNotAllowedResponse(): ApiResponse {
-    return {
-      statusCode: 405,
-      body: {
-        success: false,
-        error: 'Method not allowed'
-      }
-    };
+      return {
+          statusCode: 405,
+          body: {
+              success: false,
+              error: "Method not allowed"
+          }
+      };
   }
 
   protected conflictResponse(message: string): ApiResponse {
-    return {
-      statusCode: 409,
-      body: {
-        success: false,
-        error: message
-      }
-    };
+      return {
+          statusCode: 409,
+          body: {
+              success: false,
+              error: message
+          }
+      };
   }
 
-  protected internalServerErrorResponse(message: string = 'Internal server error'): ApiResponse {
-    return {
-      statusCode: 500,
-      body: {
-        success: false,
-        error: message
-      }
-    };
+  protected internalServerErrorResponse(message: string = "Internal server error"): ApiResponse {
+      return {
+          statusCode: 500,
+          body: {
+              success: false,
+              error: message
+          }
+      };
   }
 
   // Utility methods
