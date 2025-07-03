@@ -1,10 +1,11 @@
 import { Context } from "aws-lambda";
-
+import { logger } from "../middleware/logger";
 export abstract class BaseLambda<TEvent, TResult> {
     protected context: Context;
-
+    protected logger: typeof logger;
     constructor() {
         this.context = {} as Context;
+        this.logger = logger;
     }
 
     /**
@@ -26,7 +27,8 @@ export abstract class BaseLambda<TEvent, TResult> {
     /**
    * Initialize resources before processing
    */
-    protected async initialize(event: TEvent): Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    protected async initialize(_event: TEvent): Promise<void> {
     // Override in subclasses if needed
     }
 
