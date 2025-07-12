@@ -1,4 +1,4 @@
-import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { APIGatewayProxyEvent } from "aws-lambda";
 import { ApiResponse, RestApiLambda } from "./rest-api-lambda";
@@ -77,7 +77,7 @@ export abstract class FileUploadLambda extends RestApiLambda {
             return this.successResponse(response, "Upload URL generated successfully");
 
         } catch (error) {
-            this.logger.onError("Error handling upload request", { error });
+            this.logger.error("Error handling upload request", { error });
             return this.internalServerErrorResponse("Failed to generate upload URL");
         }
     }

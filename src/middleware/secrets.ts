@@ -8,6 +8,7 @@ import {
     GetParametersByPathCommand
 } from "@aws-sdk/client-ssm";
 import middy from "middy";
+import "../types/context";
 
 export interface SecretsManagerOptions {
   cache?: boolean;

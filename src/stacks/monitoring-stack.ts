@@ -1,5 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import * as cloudwatch from "aws-cdk-lib/aws-cloudwatch";
+import * as cloudwatchActions from "aws-cdk-lib/aws-cloudwatch-actions";
 import * as sns from "aws-cdk-lib/aws-sns";
 import * as subscriptions from "aws-cdk-lib/aws-sns-subscriptions";
 import * as lambda from "aws-cdk-lib/aws-lambda";
@@ -48,7 +49,7 @@ export class MonitoringStack extends cdk.Stack {
             actionsEnabled: true,
         });
 
-        alarm.addAlarmAction(new cloudwatch.SnsAction(this.alarmTopic));
+        alarm.addAlarmAction(new cloudwatchActions.SnsAction(this.alarmTopic));
 
         return alarm;
     }
@@ -70,7 +71,7 @@ export class MonitoringStack extends cdk.Stack {
             actionsEnabled: true,
         });
 
-        alarm.addAlarmAction(new cloudwatch.SnsAction(this.alarmTopic));
+        alarm.addAlarmAction(new cloudwatchActions.SnsAction(this.alarmTopic));
 
         return alarm;
     }

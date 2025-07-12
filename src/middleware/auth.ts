@@ -1,6 +1,7 @@
 import { CognitoJwtVerifier } from "aws-jwt-verify";
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import middy from "middy";
+import "../types/context";
 import { UnauthorizedError } from "./error-handler";
 
 export interface JwtAuthOptions {

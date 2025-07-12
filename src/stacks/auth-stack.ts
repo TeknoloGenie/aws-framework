@@ -39,7 +39,7 @@ export interface AuthStackProps extends cdk.StackProps {
 export class AuthStack extends cdk.Stack {
     public readonly userPool: cognito.UserPool;
     public readonly userPoolClient: cognito.UserPoolClient;
-    public readonly identityPool?: cognito.CfnIdentityPool;
+    public identityPool?: cognito.CfnIdentityPool;
 
     constructor(scope: Construct, id: string, props: AuthStackProps) {
         super(scope, id, props);

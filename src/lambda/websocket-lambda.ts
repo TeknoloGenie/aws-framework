@@ -1,4 +1,4 @@
-import { ApiGatewayManagementApiClient } from "@aws-sdk/client-apigatewaymanagementapi";
+import { ApiGatewayManagementApiClient, PostToConnectionCommand } from "@aws-sdk/client-apigatewaymanagementapi";
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { BaseLambda } from "./base-lambda";
 
@@ -9,7 +9,7 @@ export interface WebSocketResponse {
 
 export abstract class WebSocketLambda extends BaseLambda<APIGatewayProxyEvent, APIGatewayProxyResult> {
     protected apiGatewayClient?: ApiGatewayManagementApiClient;
-    protected logger: logger;
+
     constructor() {
         super();
 
@@ -85,7 +85,7 @@ export abstract class WebSocketLambda extends BaseLambda<APIGatewayProxyEvent, A
       return event.requestContext.routeKey;
   }
 
-  protected getDomainName(event: APIGatewayProxyEvent): string {
+  protected getDomainName(event: APIGatewayProxyEvent): (string | undefined) {
       return event.requestContext.domainName;
   }
 

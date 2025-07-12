@@ -84,7 +84,7 @@ export class ApiGatewayStack extends cdk.Stack {
         };
     }
 
-    private createAuthorizer(options: AuthorizerOptions): apigateway.IAuthorizer {
+    private createAuthorizer(options: AuthorizerOptions): apigateway.IAuthorizer | undefined {
         switch (options.type) {
         case "COGNITO_USER_POOLS":
             if (!options.userPools || options.userPools.length === 0) {
@@ -105,7 +105,8 @@ export class ApiGatewayStack extends cdk.Stack {
             });
 
         case "IAM":
-            return new apigateway.AwsIamAuthorizer();
+            // IAM authorization is handled at the method level, not as a separate authorizer
+            return undefined;
 
         default:
             throw new Error(`Unsupported authorizer type: ${options.type}`);
@@ -121,7 +122,7 @@ export class ApiGatewayStack extends cdk.Stack {
         const resource = this.getOrCreateResource(path);
 
         const methodOptions: apigateway.MethodOptions = {
-            authorizer: this.defaultAuthorizer,
+            ...(this.defaultAuthorizer && { authorizer: this.defaultAuthorizer }),
             ...options
         };
 
@@ -156,13 +157,13 @@ export class ApiGatewayStack extends cdk.Stack {
 
     private getOrCreateResource(path: string): apigateway.Resource {
         const parts = path.split("/").filter(p => p);
-        let resource: apigateway.Resource = this.api.root;
+        let resource: apigateway.IResource = this.api.root;
 
         for (const part of parts) {
             const childResource = resource.getResource(part) || resource.addResource(part);
             resource = childResource;
         }
 
-        return resource;
+        return resource as apigateway.Resource;
     }
 }

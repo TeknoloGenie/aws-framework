@@ -1,11 +1,13 @@
 import { Context } from "aws-lambda";
-import { logger } from "../middleware/logger";
+import { Logger } from "../middleware/logger";
+
 export abstract class BaseLambda<TEvent, TResult> {
     protected context: Context;
-    protected logger: typeof logger;
+    protected logger: Logger;
+
     constructor() {
         this.context = {} as Context;
-        this.logger = logger;
+        this.logger = new Logger();
     }
 
     /**

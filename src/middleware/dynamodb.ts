@@ -30,9 +30,10 @@ import {
     BatchGetCommandOutput,
     BatchWriteCommandOutput,
     TransactGetCommandOutput,
-    TransactWriteCommandOutput
+    TransactWriteCommandOutput,
 } from "@aws-sdk/lib-dynamodb";
 import middy from "middy";
+import "../types/context";
 
 export interface DynamoDBOptions {
   instance?: DynamoDBDocumentClient;
@@ -58,7 +59,10 @@ export const dynamoDb = (options: DynamoDBOptions = {}): middy.MiddlewareObject<
             }
 
             if (setToContext) {
-                request.context.dynamoDB = documentClient;
+                request.context.dynamoDB = {
+                    client: new DynamoDBClient({}),
+                    docClient: documentClient
+                };
             }
         },
     };

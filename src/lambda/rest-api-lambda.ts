@@ -17,7 +17,7 @@ export interface AuthUser {
 }
 
 export abstract class RestApiLambda extends BaseLambda<APIGatewayProxyEvent, APIGatewayProxyResult> {
-    protected jwtVerifier?: CognitoJwtVerifier;
+    protected jwtVerifier?: CognitoJwtVerifier<any, any, any>;
 
     constructor() {
         super();
@@ -77,11 +77,11 @@ export abstract class RestApiLambda extends BaseLambda<APIGatewayProxyEvent, API
           const payload = await this.jwtVerifier.verify(token);
 
           return {
-              id: payload.sub,
-              email: payload.email || "",
-              username: payload["custom:username"] || payload.email || "",
-              role: payload["custom:role"] || "user",
-              permissions: payload["custom:permissions"] ? JSON.parse(payload["custom:permissions"]) : []
+              id: payload.sub as string,
+              email: (payload.email as string) || "",
+              username: (payload["custom:username"] as string) || (payload.email as string) || "",
+              role: (payload["custom:role"] as string) || "user",
+              permissions: payload["custom:permissions"] ? JSON.parse(payload["custom:permissions"] as string) : []
           };
       } catch (error) {
           this.logger.warn("Token verification failed", { error });

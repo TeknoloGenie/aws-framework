@@ -16,10 +16,13 @@ export abstract class EventLambda<TEvent extends EventType, TResult = void> exte
   }
 
   protected getEventSource(event: TEvent): string {
-      if ("Records" in event && event.Records?.[0]?.eventSource === "aws:sqs") {
-          return "SQS";
-      } else if ("Records" in event && event.Records?.[0]?.EventSource === "aws:sns") {
-          return "SNS";
+      if ("Records" in event && event.Records?.[0]) {
+          const record = event.Records[0];
+          if ("eventSource" in record && record.eventSource === "aws:sqs") {
+              return "SQS";
+          } else if ("EventSource" in record && record.EventSource === "aws:sns") {
+              return "SNS";
+          }
       } else if ("source" in event) {
           return "EventBridge";
       }
