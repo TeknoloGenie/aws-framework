@@ -18,24 +18,25 @@
     "bootstrap": "cdk bootstrap"
   },
   "dependencies": {
-    "aws-framework": "file:../../..",
-    "aws-cdk-lib": "^2.100.0",
-    "constructs": "^10.3.0",
+    "@aws-sdk/client-apigatewaymanagementapi": "^3.400.0",
     "@aws-sdk/client-dynamodb": "^3.400.0",
     "@aws-sdk/lib-dynamodb": "^3.400.0",
-    "@aws-sdk/client-apigatewaymanagementapi": "^3.400.0",
-    "uuid": "^9.0.0",
-    "jsonwebtoken": "^9.0.2"
+    "aws-cdk-lib": "^2.100.0",
+    "aws-framework": "file:../../..",
+    "constructs": "^10.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/jsonwebtoken": "^9.0.0",
     "@types/node": "^20.5.0",
     "@types/uuid": "^9.0.0",
-    "@types/jsonwebtoken": "^9.0.0",
-    "@types/jest": "^29.5.0",
-    "typescript": "^5.1.0",
+    "aws-cdk": "^2.100.0",
     "jest": "^29.6.0",
     "ts-jest": "^29.1.0",
-    "aws-cdk": "^2.100.0"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.1.0"
   },
   "jest": {
     "preset": "ts-jest",

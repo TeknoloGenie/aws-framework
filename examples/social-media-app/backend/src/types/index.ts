@@ -14,9 +14,9 @@ export interface User {
 }
 
 export enum UserRole {
-  ADMIN = 'admin',
-  MODERATOR = 'moderator',
-  USER = 'user'
+  ADMIN = "admin",
+  MODERATOR = "moderator",
+  USER = "user"
 }
 
 // Post types
@@ -25,7 +25,7 @@ export interface Post {
   userId: string;
   content: string;
   mediaUrls?: string[];
-  mediaType?: 'image' | 'video';
+  mediaType?: "image" | "video";
   likes: number;
   likedBy: string[];
   commentCount: number;
@@ -38,7 +38,7 @@ export interface Post {
 export interface CreatePostRequest {
   content: string;
   mediaUrls?: string[];
-  mediaType?: 'image' | 'video';
+  mediaType?: "image" | "video";
   isPublic?: boolean;
 }
 
@@ -78,8 +78,8 @@ export interface Chat {
 }
 
 export enum ChatType {
-  DIRECT = 'direct',
-  GROUP = 'group'
+  DIRECT = "direct",
+  GROUP = "group"
 }
 
 export interface Message {
@@ -97,11 +97,11 @@ export interface Message {
 }
 
 export enum MessageType {
-  TEXT = 'text',
-  IMAGE = 'image',
-  VIDEO = 'video',
-  FILE = 'file',
-  SYSTEM = 'system'
+  TEXT = "text",
+  IMAGE = "image",
+  VIDEO = "video",
+  FILE = "file",
+  SYSTEM = "system"
 }
 
 export interface CreateChatRequest {
@@ -127,32 +127,32 @@ export interface WebSocketMessage {
 
 export enum WebSocketMessageType {
   // Connection management
-  CONNECT = 'connect',
-  DISCONNECT = 'disconnect',
-  
+  CONNECT = "connect",
+  DISCONNECT = "disconnect",
+
   // Post events
-  POST_CREATED = 'post.created',
-  POST_UPDATED = 'post.updated',
-  POST_DELETED = 'post.deleted',
-  POST_LIKED = 'post.liked',
-  
+  POST_CREATED = "post.created",
+  POST_UPDATED = "post.updated",
+  POST_DELETED = "post.deleted",
+  POST_LIKED = "post.liked",
+
   // Comment events
-  COMMENT_ADDED = 'comment.added',
-  COMMENT_UPDATED = 'comment.updated',
-  COMMENT_DELETED = 'comment.deleted',
-  
+  COMMENT_ADDED = "comment.added",
+  COMMENT_UPDATED = "comment.updated",
+  COMMENT_DELETED = "comment.deleted",
+
   // Chat events
-  MESSAGE_SENT = 'message.sent',
-  MESSAGE_READ = 'message.read',
-  USER_TYPING = 'user.typing',
-  
+  MESSAGE_SENT = "message.sent",
+  MESSAGE_READ = "message.read",
+  USER_TYPING = "user.typing",
+
   // User events
-  USER_ONLINE = 'user.online',
-  USER_OFFLINE = 'user.offline',
-  
+  USER_ONLINE = "user.online",
+  USER_OFFLINE = "user.offline",
+
   // System events
-  NOTIFICATION = 'notification',
-  ERROR = 'error'
+  NOTIFICATION = "notification",
+  ERROR = "error"
 }
 
 // API Response types
@@ -191,30 +191,30 @@ export interface JwtPayload {
 // Permission types
 export enum Permission {
   // Post permissions
-  CREATE_POST = 'post:create',
-  UPDATE_OWN_POST = 'post:update:own',
-  UPDATE_ANY_POST = 'post:update:any',
-  DELETE_OWN_POST = 'post:delete:own',
-  DELETE_ANY_POST = 'post:delete:any',
-  
+  CREATE_POST = "post:create",
+  UPDATE_OWN_POST = "post:update:own",
+  UPDATE_ANY_POST = "post:update:any",
+  DELETE_OWN_POST = "post:delete:own",
+  DELETE_ANY_POST = "post:delete:any",
+
   // Comment permissions
-  CREATE_COMMENT = 'comment:create',
-  UPDATE_OWN_COMMENT = 'comment:update:own',
-  UPDATE_ANY_COMMENT = 'comment:update:any',
-  DELETE_OWN_COMMENT = 'comment:delete:own',
-  DELETE_ANY_COMMENT = 'comment:delete:any',
-  
+  CREATE_COMMENT = "comment:create",
+  UPDATE_OWN_COMMENT = "comment:update:own",
+  UPDATE_ANY_COMMENT = "comment:update:any",
+  DELETE_OWN_COMMENT = "comment:delete:own",
+  DELETE_ANY_COMMENT = "comment:delete:any",
+
   // Chat permissions
-  CREATE_CHAT = 'chat:create',
-  JOIN_CHAT = 'chat:join',
-  SEND_MESSAGE = 'message:send',
-  DELETE_OWN_MESSAGE = 'message:delete:own',
-  DELETE_ANY_MESSAGE = 'message:delete:any',
-  
+  CREATE_CHAT = "chat:create",
+  JOIN_CHAT = "chat:join",
+  SEND_MESSAGE = "message:send",
+  DELETE_OWN_MESSAGE = "message:delete:own",
+  DELETE_ANY_MESSAGE = "message:delete:any",
+
   // Admin permissions
-  MANAGE_USERS = 'user:manage',
-  MODERATE_CONTENT = 'content:moderate',
-  VIEW_ANALYTICS = 'analytics:view'
+  MANAGE_USERS = "user:manage",
+  MODERATE_CONTENT = "content:moderate",
+  VIEW_ANALYTICS = "analytics:view"
 }
 
 // Database types
@@ -235,7 +235,7 @@ export interface FileUploadRequest {
   fileName: string;
   contentType: string;
   fileSize: number;
-  uploadType: 'profile' | 'post' | 'message';
+  uploadType: "profile" | "post" | "message";
 }
 
 export interface FileUploadResponse {

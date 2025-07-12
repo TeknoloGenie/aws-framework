@@ -124,7 +124,7 @@ export function createHttpApiEvent(options: {
             time: new Date().toISOString(),
             timeEpoch: Date.now(),
         },
-        body: body ? JSON.stringify(body) : null,
+        body: body ? JSON.stringify(body) : undefined,
         isBase64Encoded,
         cookies: [],
     };

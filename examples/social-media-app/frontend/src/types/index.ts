@@ -14,9 +14,9 @@ export interface User {
 }
 
 export enum UserRole {
-  ADMIN = 'admin',
-  MODERATOR = 'moderator',
-  USER = 'user'
+  ADMIN = "admin",
+  MODERATOR = "moderator",
+  USER = "user"
 }
 
 // Post types
@@ -25,7 +25,7 @@ export interface Post {
   userId: string;
   content: string;
   mediaUrls?: string[];
-  mediaType?: 'image' | 'video';
+  mediaType?: "image" | "video";
   likes: number;
   likedBy: string[];
   commentCount: number;
@@ -38,7 +38,7 @@ export interface Post {
 export interface CreatePostRequest {
   content: string;
   mediaUrls?: string[];
-  mediaType?: 'image' | 'video';
+  mediaType?: "image" | "video";
   isPublic?: boolean;
 }
 
@@ -79,8 +79,8 @@ export interface Chat {
 }
 
 export enum ChatType {
-  DIRECT = 'direct',
-  GROUP = 'group'
+  DIRECT = "direct",
+  GROUP = "group"
 }
 
 export interface Message {
@@ -98,11 +98,11 @@ export interface Message {
 }
 
 export enum MessageType {
-  TEXT = 'text',
-  IMAGE = 'image',
-  VIDEO = 'video',
-  FILE = 'file',
-  SYSTEM = 'system'
+  TEXT = "text",
+  IMAGE = "image",
+  VIDEO = "video",
+  FILE = "file",
+  SYSTEM = "system"
 }
 
 export interface CreateChatRequest {
@@ -127,22 +127,22 @@ export interface WebSocketMessage {
 }
 
 export enum WebSocketMessageType {
-  CONNECT = 'connect',
-  DISCONNECT = 'disconnect',
-  POST_CREATED = 'post.created',
-  POST_UPDATED = 'post.updated',
-  POST_DELETED = 'post.deleted',
-  POST_LIKED = 'post.liked',
-  COMMENT_ADDED = 'comment.added',
-  COMMENT_UPDATED = 'comment.updated',
-  COMMENT_DELETED = 'comment.deleted',
-  MESSAGE_SENT = 'message.sent',
-  MESSAGE_READ = 'message.read',
-  USER_TYPING = 'user.typing',
-  USER_ONLINE = 'user.online',
-  USER_OFFLINE = 'user.offline',
-  NOTIFICATION = 'notification',
-  ERROR = 'error'
+  CONNECT = "connect",
+  DISCONNECT = "disconnect",
+  POST_CREATED = "post.created",
+  POST_UPDATED = "post.updated",
+  POST_DELETED = "post.deleted",
+  POST_LIKED = "post.liked",
+  COMMENT_ADDED = "comment.added",
+  COMMENT_UPDATED = "comment.updated",
+  COMMENT_DELETED = "comment.deleted",
+  MESSAGE_SENT = "message.sent",
+  MESSAGE_READ = "message.read",
+  USER_TYPING = "user.typing",
+  USER_ONLINE = "user.online",
+  USER_OFFLINE = "user.offline",
+  NOTIFICATION = "notification",
+  ERROR = "error"
 }
 
 // API Response types
@@ -176,7 +176,7 @@ export interface FileUploadRequest {
   fileName: string;
   contentType: string;
   fileSize: number;
-  uploadType: 'profile' | 'post' | 'message';
+  uploadType: "profile" | "post" | "message";
 }
 
 export interface FileUploadResponse {
@@ -188,7 +188,7 @@ export interface FileUploadResponse {
 // UI State types
 export interface NotificationState {
   id: string;
-  type: 'success' | 'error' | 'info' | 'warning';
+  type: "success" | "error" | "info" | "warning";
   title: string;
   message: string;
   timestamp: string;

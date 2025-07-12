@@ -1,14 +1,14 @@
 import * as cdk from "aws-cdk-lib";
 import {
-  ApiGatewayStack,
-  AuthStack,
-  DatabaseStack,
-  FileStack,
-  MonitoringStack,
-  NetworkingStack,
-  ServerlessStack,
-  WebSocketApiStack,
-  WebStack
+    ApiGatewayStack,
+    AuthStack,
+    DatabaseStack,
+    FileStack,
+    MonitoringStack,
+    NetworkingStack,
+    ServerlessStack,
+    WebSocketApiStack,
+    WebStack
 } from "aws-framework";
 import { Construct } from "constructs";
 

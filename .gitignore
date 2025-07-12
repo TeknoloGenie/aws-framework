@@ -62,3 +62,7 @@ config/production.json
 *.pem
 *.key
 *.crt
+
+# NextJS
+.next/
+out/
